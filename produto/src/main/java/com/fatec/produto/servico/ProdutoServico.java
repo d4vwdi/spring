@@ -16,24 +16,25 @@ import com.fatec.produto.model.Produto;
 public class ProdutoServico implements IProdutoServico {
 	@Autowired
 	IProdutoRepository repositoryP;
+	@Autowired
 	IImagemRepository repositoryI;
 
 	@Override
 	public List<Catalogo> consultaCatalogo() {
-		Catalogo c=null; 
+		Catalogo c = null;
 		List<Catalogo> Lista = new ArrayList<>();
 		List<Produto> listaP = repositoryP.findAll();
 		List<Imagem> listaI = repositoryI.findAll();
 		for (Produto p : listaP) {
-			 for (Imagem i : listaI) {
-			 if (p.getId().equals(i.getId())) {
-			 c = new Catalogo(p.getId(), p.getDescricao(), p.getCategoria(),
-			p.getCusto(),p.getQuantidadeNoEstoque(), i.getArquivo());
-			 Lista.add(c);
-			 }
-			 }
-			 }
-			 return Lista;
+			for (Imagem i : listaI) {
+				if (p.getId().equals(i.getId())) {
+					c = new Catalogo(p.getId(), p.getDescricao(), p.getCategoria(), p.getCusto(),
+							p.getQuantidadeNoEstoque(), i.getArquivo());
+					Lista.add(c);
+				}
+			}
+		}
+		return Lista;
 	}
 
 }
